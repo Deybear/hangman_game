@@ -1,0 +1,94 @@
+
+/* - - - - - - - - - - || IMPORT FONTS || - - - - - - - - - - */
+
+/* Poppins (Regular) Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* Poppins (Bold) Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* Poppins (Black) Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
+/* - - - - - - - - - - || GENERAL || - - - - - - - - - - */
+body
+{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* - - - - - - - - - - || CONTAINER || - - - - - - - - - - */
+.container
+{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* - - - - - - - - - - || COLUMN #001 && HANGMAN || - - - - - - - - - - */
+.block_001
+{
+    width: 50%;
+    padding: 30px;
+    color: #FFFFFF;
+    background: #353535;
+}
+
+/* - - - - - - - - - - || COLUMN #002 && KEYBOARD || - - - - - - - - - - */
+.block_002
+{
+    width: 50%;
+    padding: 30px;
+    color: #FFFFFF;
+    background: #2a2a2a;
+}
+
+/* - - - - - - - - - - || RESPONSIVE BREAKPOINTS || - - - - - - - - - - */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px)
+{
+    .container
+    {
+        flex-direction: column;
+    }
+
+    .block_001
+    {
+        width: auto;
+        height: 100%;
+    }
+
+    .block_002
+    {
+        width: auto;
+        height: 100%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px)
+{
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px)
+{
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px)
+{
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px)
+{
+
+}
