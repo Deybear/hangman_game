@@ -34,7 +34,13 @@ body
     width: 50%;
     padding: 30px;
     color: #FFFFFF;
+    text-align: center;
     background: #353535;
+}
+
+.generated_img
+{
+    width: 60%;
 }
 
 /* - - - - - - - - - - || COLUMN #002 && KEYBOARD || - - - - - - - - - - */
@@ -43,7 +49,66 @@ body
     width: 50%;
     padding: 30px;
     color: #FFFFFF;
+    text-align: center;
     background: #2a2a2a;
+}
+
+#keyboard_container
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.letter_box
+{
+    width: 50px;
+    margin: 5px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2a2a2a;
+    border-radius: 8px;
+    background: #FFFFFF;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.true_letter
+{
+    width: 50px;
+    margin: 5px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2a2a2a;
+    border-radius: 8px;
+    background: green;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.false_letter
+{
+    width: 50px;
+    margin: 5px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2a2a2a;
+    border-radius: 8px;
+    background: red;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* - - - - - - - - - - || RESPONSIVE BREAKPOINTS || - - - - - - - - - - */

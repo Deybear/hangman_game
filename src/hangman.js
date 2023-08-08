@@ -11,3 +11,5 @@ class Hangman
         return this.images[this.position];
     }
 }
+
+export {Hangman};
