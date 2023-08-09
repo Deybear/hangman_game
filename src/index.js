@@ -1,91 +1,144 @@
 
 // - - - - - - - - - - || IMPORT OBJECTS || - - - - - - - - - - //
-
-
 import { Keyboard } from "./keyboard.js";
 import { Hangman } from "./hangman.js";
-//import { Panel } from "./panel.js";
+import { Word } from "./word.js";
 
 // - - - - - - - - - - || CALLING CLASSES || - - - - - - - - - - //
 const keyboard = new Keyboard();
 const hangman = new Hangman();
-//const panel = new Panel();
+const word = new Word();
 
-var clickCounter = 0;
+var wrongGuesses = 0;
+var maxGuesses = 6;
+var currentWord;
 
 // - - - - - - - - - - || FUNCTIONS || - - - - - - - - - - //
-function displayHangman()
+function displayWord()
 {
-    const hangmanContainer = document.getElementById('img_container');
-    const generatedHangman = hangman.changeImage();
+    const wordContainer = document.getElementById('word_container');
+    const hintContainer = document.getElementById('hint_container');
 
-    const img = document.createElement("img");
-    img.src = hangman.images[0];
-    img.classList = "generated_img";
-    hangmanContainer.appendChild(img);
+    //Get a random word and hint . . . 
+    const randomWord = word.wordList[Math.floor(Math.random() * word.wordList.length)];
 
+    currentWord = randomWord.word;
+    console.log(randomWord.word);
+
+    //Display word . . .
+    wordContainer.innerHTML = randomWord.word.split("").map(() => `<div class="word_letter">_</div>`).join("");
+
+    //Display hint . . .
+    const span = document.createElement("span");
+    span.textContent = "(" + randomWord.hint + ")";
+    hintContainer.appendChild(span);
+}
+
+
+// function displayKeyboard()
+// {
+//     const keyboardContainer = document.getElementById('keyboard_container');
+//     const generatedKeyboard = keyboard.createKeyboard();
+
+//     generatedKeyboard.map(keyboard => {
+
+//         const div = document.createElement("div");
+//         div.classList = "letter_box";
+    
+//         const span = document.createElement("span");
+//         span.textContent = keyboard.letter;
+    
+//         div.appendChild(span);
+//         keyboardContainer.appendChild(div);
+    
+//         //Click letter . . .
+//         div.addEventListener("click", function(){
+    
+//             console.log("Clicking", "(" + span.textContent + ")");
+//             clickCounter++;
+
+//             if(keyboard.status === true)
+//             {
+//                 span.textContent = "done";
+//                 div.classList = "true_letter";
+//                 span.classList = "material-icons";
+//             }
+//             else
+//             {
+//                 span.textContent = "close";
+//                 div.classList = "false_letter";
+//                 span.classList = "material-icons";
+//             }
+    
+//             if(clickCounter === 7)
+//             {
+
+//                 setTimeout(() => {
+
+//                     if (confirm("- - - > GAME OVER < - - -"))
+//                     {
+//                         location.reload(true);
+//                     }
+        
+//                 }, 500);
+
+//                 clickCounter = 0;
+//             }
+    
+//         });
+    
+//         /*
+//         div.addEventListener("click", (e) => {
+
+//             console.log(e.target);
+    
+//         });
+//         */
+
+//     });
+// }
+
+const initGame = (button, clickedLetter) => {
+
+    const wordContainer = document.getElementById('word_container');
+    const imgContainer = document.getElementById('img_container');
+    const tryContainer = document.getElementById('try_container');
+
+    if(currentWord.includes(clickedLetter))
+    {
+        [...currentWord].forEach((letter,index) => {
+
+            if(letter === clickedLetter)
+            {
+                wordContainer.querySelectorAll("div")[index].innerText = letter;
+            }
+        });
+    }
+    else
+    {
+        wrongGuesses++;
+        imgContainer.src = hangman.images[wrongGuesses];
+    }
+
+    button.disabled = true;
+    tryContainer.textContent = `${wrongGuesses} / ${maxGuesses}`;
 }
 
 function displayKeyboard()
 {
     const keyboardContainer = document.getElementById('keyboard_container');
-    const generatedKeyboard = keyboard.createKeyboard();
 
-    generatedKeyboard.map(keyboard => {
+    for(let counter = 97; counter <= 122; counter++)
+    {
+        const button = document.createElement("button");
+        button.innerHTML = String.fromCharCode(counter);
+        keyboardContainer.appendChild(button);
 
-        const div = document.createElement("div");
-        div.classList = "letter_box";
-    
-        const span = document.createElement("span");
-        span.textContent = keyboard.letter;
-    
-        div.appendChild(span);
-        keyboardContainer.appendChild(div);
-    
-        //Click letter . . .
-        div.addEventListener("click", function(){
-    
-            console.log("Clicking", "(" + span.textContent + ")");
-            clickCounter++;
-
-            if(keyboard.status === true)
-            {
-                div.classList = "true_letter";
-                span.textContent = "°o°";
-            }
-            else
-            {
-                div.classList = "false_letter";
-                span.textContent = "°-°";
-            }
-    
-            if(clickCounter === 7)
-            {
-
-                setTimeout(() => {
-
-                    if (confirm("- - - > GAME OVER < - - -"))
-                    {
-                        location.reload(true);
-                    }
-        
-                }, 500);
-
-                clickCounter = 0;
-            }
-    
-        });
-    
-        /*
-        div.addEventListener("click", (e) => {
-
-            console.log(e.target);
-    
-        });
-        */
-
-    });
+        button.addEventListener("click", e => initGame(e.target, String.fromCharCode(counter)));
+    }
 }
 
-displayHangman();
+displayWord();
+
+//displayHangman();
 displayKeyboard();

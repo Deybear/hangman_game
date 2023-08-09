@@ -5,7 +5,13 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Material icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
+
     <title>Deybear's Hangman Game</title>
 
 </head>
@@ -19,9 +25,13 @@
         <div class="block_001">
 
             <!-- Image Container -->
-            <div id="img_container"></div>
+            <img id="img_container" src="../assets/images/0.png" alt="">
 
-            <h2>Hola</h2>
+            <!-- Word Container -->
+            <div id="word_container"></div>
+
+            <!-- Hint Container -->
+            <div id="hint_container"></div>
 
         </div>
 
@@ -33,6 +43,9 @@
 
             <!-- Keyboard Container -->
             <div id="keyboard_container"></div>
+
+            <!-- Try Container -->
+            <h5>Number of attempts<span id="try_container">0 / 6</span></h5>
 
         </div>
 
