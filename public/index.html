@@ -5,26 +5,59 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Material icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="../assets/styles/style.css">
-
-    <title>Deybear's Hangman Game</title>
+    <title>Deybear's Hangman</title>
 
 </head>
 
 <body>
 
-    <div id="game_modal">
+    <!-- GAME OVER -->
+    <div id="popup_container">
 
-        <div class="content">
+        <!-- PopUp -->
+        <div class="popup">
 
-            <h4>GAME OVER</h4>
-            <p>The correct word was: <b>rainbow</b></p>
-            <button id="play_again">Play Again</button>
+            <!-- PopUp Header -->
+            <div class="tab_header">
+
+                <!-- Title -->
+                <span class="tab_name">HANGMAN</span>
+                
+                <!-- Line -->
+                <div class="tab_line"></div>
+
+                <div class="tab_circle">
+
+                    <!-- Circle #001 -->
+                    <span class="circle"></span>
+
+                    <!-- Circle #002 -->
+                    <span class="circle"></span>
+
+                    <!-- Circle #003 -->
+                    <span class="circle"></span>
+
+                </div>
+
+            </div>
+
+            <!-- Title -->
+            <h3 class="popup_title">GAME OVER</h3>
+
+            <!-- Answer -->
+            <p class="popup_subtitle">The correct word was: <span>Hangman</span></p>
+
+            <!-- Button Container -->
+            <div class="popup_button">
+
+                <!-- Replay Button -->
+                <button id="reset_popup_btn" class="reset_btn" type="button">RESET</button>
+
+                <!-- Close Button -->
+                <button id="close_popup_btn" class="close_btn" type="button">CLOSE</button>
+
+            </div>
 
         </div>
 
@@ -33,38 +66,155 @@
     <!-- Main Container -->
     <div class="container">
 
-        <!-- Block #001 || Hangman -->
-        <div class="block_001">
+        <!-- Column #001 // Hangman -->
+        <div class="col-lg-lf">
 
-            <!-- Image Container -->
-            <img id="img_container" src="../assets/images/0.png" alt="">
+            <!-- Open Tab #001 -->
+            <div class="open_tab">
 
-            <!-- Word Container -->
-            <div id="word_container"></div>
+                <!-- Header -->
+                <div class="tab_header">
 
-            <!-- Hint Container -->
-            <div id="hint_container"></div>
+                    <!-- Title -->
+                    <span class="tab_name">HANGMAN</span>
+                    
+                    <!-- Line -->
+                    <div class="tab_line"></div>
+
+                    <div class="tab_circle">
+
+                        <!-- Circle #001 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #002 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #003 -->
+                        <span class="circle"></span>
+
+                    </div>
+
+                </div>
+
+                <!-- About Game -->
+                <div class="about_game">
+
+                    <!-- Image Container -->
+                    <div id="img_container"><img src="../assets/images/0.png" alt=""></div>
+
+                    <!-- About Container -->
+                    <div class="about_container">
+
+                        <!-- About Title -->
+                        <h2 class="about_title">GAME HERE!</h2>
+
+                        <!-- About Subtitle -->
+                        <p class="about_subtitle">ATTEMPTS (<span id="attempts_container">0-6</span>)</p>
+
+                        <!-- About Paragraph -->
+                        <p class="about_paragraph">Find the word before you run out of turns! Good luck!</p>
+
+                        <!-- About Button -->
+                        <div class="about_button">
+
+                            <!-- Replay Button -->
+                            <button id="reset_btn" class="reset_btn" type="button">RESET</button>
+
+                            <!-- Close Button -->
+                            <button id="close_btn" class="close_btn" style="margin-top: 10px;" type="button">CLOSE</button>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <!-- Block #002 || Keyboard -->
-        <div class="block_002">
+        <!-- Column #002 // Keyboard -->
+        <div class="col-lg-rg">
 
-            <!-- Title -->
-            <h2>CHOOSE A LETTER</h2>
+            <!-- Open Tab #002 -->
+            <div class="open_tab" style="margin-bottom: 40px;">
 
-            <!-- Keyboard Container -->
-            <div id="keyboard_container"></div>
+                <!-- Header -->
+                <div class="tab_header">
 
-            <!-- Try Container -->
-            <h5>Number of attempts<span id="try_container">0 / 6</span></h5>
+                    <!-- Title -->
+                    <span class="tab_name">HANGMAN</span>
+                    
+                    <!-- Line -->
+                    <div class="tab_line"></div>
+
+                    <div class="tab_circle">
+
+                        <!-- Circle #001 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #002 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #003 -->
+                        <span class="circle"></span>
+
+                    </div>
+
+                </div>
+
+                <!-- Word Container -->
+                <div id="word_container"></div>
+
+            </div>
+
+            <!-- Open Tab #003 -->
+            <div class="open_tab">
+
+                <!-- Header -->
+                <div class="tab_header">
+
+                    <!-- Title -->
+                    <span class="tab_name">HANGMAN</span>
+                    
+                    <!-- Line -->
+                    <div class="tab_line"></div>
+
+                    <!-- Circle -->
+                    <div class="tab_circle">
+
+                        <!-- Circle #001 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #002 -->
+                        <span class="circle"></span>
+
+                        <!-- Circle #003 -->
+                        <span class="circle"></span>
+
+                    </div>
+
+                </div>
+
+                <!-- Keyboard Container -->
+                <div id="keyboard_container"></div>
+
+            </div>
 
         </div>
 
     </div>
 
-    <script type="module" src="../src/index.js"></script>
+    <!-- Float PopUps -->
+    <img class="popup_001" src="../assets/images/popup.svg" alt="">
+    <img class="popup_002" src="../assets/images/popup.svg" alt="">
+    <img class="popup_003" src="../assets/images/popup.svg" alt="">
+    <img class="popup_004" src="../assets/images/popup.svg" alt="">
 
+    <!-- JavaScript -->
+    <script type="module" src="../src/index.js"></script>
+    
 </body>
 
 </html>

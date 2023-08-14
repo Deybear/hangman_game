@@ -1,29 +1,53 @@
-
-class Word{
-
+class Word
+{
     constructor()
     {
         this.wordList = [
 
             {
-                word: "elephant",
-                hint: "It is the largest living land animal"
+                word: "ABANDONED"
             },
             {
-                word: "hippopotamus",
-                hint: "A large thick-skinned semiaquatic mammal"
+                word: "BREAKFAST"
             },
             {
-                word: "tyrannosaurus",
-                hint: "A very large bipedal carnivorous dinosaur"
+                word: "COMMUNITY"
             },
             {
-                word: "railway",
-                hint: "A track made of steel rails along which trains run"
+                word: "DANGEROUS"
             },
             {
-                word: "paradox",
-                hint: "A thing that combines contradictory features or qualities"
+                word: "EXCEPTION"
+            },
+            {
+                word: "FLAMMABLE"
+            },
+            {
+                word: "GENERALLY"
+            },
+            {
+                word: "HAPPINESS"
+            },
+            {
+                word: "INJUSTICE"
+            },
+            {
+                word: "JELLYFISH"
+            },
+            {
+                word: "KNOWLEDGE"
+            },
+            {
+                word: "LANDSCAPE"
+            },
+            {
+                word: "MARKETING"
+            },
+            {
+                word: "NECESSARY"
+            },
+            {
+                word: "OVERPLAYS"
             }
         ];
     }

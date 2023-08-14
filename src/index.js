@@ -1,181 +1,176 @@
-
 // - - - - - - - - - - || IMPORT OBJECTS || - - - - - - - - - - //
 
 import { Keyboard } from "./keyboard.js";
-import { Hangman } from "./hangman.js";
+import { Image } from "./image.js";
 import { Word } from "./word.js";
 
 // - - - - - - - - - - || CALLING CLASSES || - - - - - - - - - - //
 
 const keyboard = new Keyboard();
-const hangman = new Hangman();
+const image = new Image();
 const word = new Word();
 
 // - - - - - - - - - - || CALLING HTML || - - - - - - - - - - //
 
-const keyboardContainer = document.getElementById('keyboard_container');
-const wordContainer = document.getElementById('word_container');
-const hintContainer = document.getElementById('hint_container');
-const imgContainer = document.getElementById('img_container');
-const tryContainer = document.getElementById('try_container');
-const gameModal = document.getElementById("game_modal");
-const playAgain = document.getElementById("play_again");
+const keyboardContainer = document.getElementById("keyboard_container");
+const attemptsContainer = document.getElementById("attempts_container");
+
+const popUpContainer = document.getElementById("popup_container");
+const imageContainer = document.getElementById("img_container");
+const wordContainer = document.getElementById("word_container");
+
+const popUpResetBtn = document.getElementById("reset_popup_btn");
+const popUpCloseBtn = document.getElementById("close_popup_btn");
+const resetButton = document.getElementById("reset_btn");
+const closeButton = document.getElementById("close_btn");
 
 // - - - - - - - - - - || VARIABLES || - - - - - - - - - - //
 
-var wrongGuesses;
-const maxGuesses = 6;
-var currentWord;
+const attempts = 6;
+var failedAttempts;
 var correctLetters;
+var currentWord;
 
 // - - - - - - - - - - || FUNCTIONS || - - - - - - - - - - //
 
+//Reset values . . .
 const resetGame = () => {
 
-    correctLetters =[];
-    wrongGuesses = 0;
+    correctLetters = [];
+    failedAttempts = 0;
 
-    imgContainer.src = hangman.images[wrongGuesses];
-    tryContainer.textContent = `${wrongGuesses} / ${maxGuesses}`;
+    //Add source to image . . .
+    imageContainer.querySelector("img").src = image.images[failedAttempts];
 
+    //Change attempts counter . . .
+    attemptsContainer.textContent = `${failedAttempts}-${attempts}`;
+
+    //Enable each button . . .
     keyboardContainer.querySelectorAll("button").forEach(btn => btn.disabled = false);
 
     //Display word . . .
-    const wordContainer = document.getElementById('word_container');
-    wordContainer.innerHTML = currentWord.split("").map(() => `<div class="word_letter">_</div>`).join("");
-    gameModal.classList.remove("show");
+    wordContainer.innerHTML = currentWord.split("").map(() => `<div id="word_letter"></div>`).join("");
+
+    //Hide popup . . .
+    popUpContainer.classList.remove("show");
 }
 
-function displayWord()
+//Choose word . . .
+function generateWord()
 {
-    //Get a random word and hint . . . 
+    //Get a random word . . .
     const randomWord = word.wordList[Math.floor(Math.random() * word.wordList.length)];
 
+    //Put word in a variable . . .
     currentWord = randomWord.word;
+
     console.log(randomWord.word);
 
-    //Display hint . . .
-    const span = document.createElement("span");
-    span.textContent = "(" + randomWord.hint + ")";
-    hintContainer.appendChild(span);
-
+    //Reset game . . .
     resetGame();
 }
 
+//Game functionality . . .
 const gameOver = (isVictory) => {
 
+    //Delay message . . .
     setTimeout(() => {
 
-        const modalText = isVictory ? "You found the word:" : "The correct word was:";
-        gameModal.querySelector("h4").innerText = `${isVictory ? "Congrats!" : "Game Over"}`;
-        gameModal.querySelector("p").innerText = `${modalText} <b>${currentWord}</b>`;
-        gameModal.classList.add("show");
+        //Game status validation . . .
+        const popUpText = isVictory ? "You found the word:" : "The correct word was:";
+
+        //Show game status . . .
+        popUpContainer.querySelector("h3").innerText = `${isVictory ? "CONGRATS!" : "GAME OVER"}`;
+
+        //Show popup message . . .
+        popUpContainer.querySelector("p").innerText = `${popUpText} ${currentWord}`;
+
+        //Show popup . . .
+        popUpContainer.classList.add("show");
 
     }, 300);
-
 }
 
-// function displayKeyboard()
-// {
-//     const keyboardContainer = document.getElementById('keyboard_container');
-//     const generatedKeyboard = keyboard.createKeyboard();
+//Game functionality . . .
+const setGame = (button, clickedLetter) => {
 
-//     generatedKeyboard.map(keyboard => {
-
-//         const div = document.createElement("div");
-//         div.classList = "letter_box";
-    
-//         const span = document.createElement("span");
-//         span.textContent = keyboard.letter;
-    
-//         div.appendChild(span);
-//         keyboardContainer.appendChild(div);
-    
-//         //Click letter . . .
-//         div.addEventListener("click", function(){
-    
-//             console.log("Clicking", "(" + span.textContent + ")");
-//             clickCounter++;
-
-//             if(keyboard.status === true)
-//             {
-//                 span.textContent = "done";
-//                 div.classList = "true_letter";
-//                 span.classList = "material-icons";
-//             }
-//             else
-//             {
-//                 span.textContent = "close";
-//                 div.classList = "false_letter";
-//                 span.classList = "material-icons";
-//             }
-    
-//             if(clickCounter === 7)
-//             {
-
-//                 setTimeout(() => {
-
-//                     if (confirm("- - - > GAME OVER < - - -"))
-//                     {
-//                         location.reload(true);
-//                     }
-        
-//                 }, 500);
-
-//                 clickCounter = 0;
-//             }
-    
-//         });
-    
-//         /*
-//         div.addEventListener("click", (e) => {
-
-//             console.log(e.target);
-    
-//         });
-//         */
-
-//     });
-// }
-
-const initGame = (button, clickedLetter) => {
-
+    //Check letter inside the word . . .
     if(currentWord.includes(clickedLetter))
     {
-        [...currentWord].forEach((letter,index) => {
+        //Create duplicate . . .
+        [...currentWord].forEach((letter, index) => {
 
             if(letter === clickedLetter)
             {
+                //Add letter to array . . .
                 correctLetters.push(letter);
+
+                //Add letter to each div . . .
                 wordContainer.querySelectorAll("div")[index].innerText = letter;
             }
         });
     }
     else
     {
-        wrongGuesses++;
-        imgContainer.src = hangman.images[wrongGuesses];
+        //Increase counter . . .
+        failedAttempts++;
+
+        //Add source to image . . .
+        imageContainer.querySelector("img").src = image.images[failedAttempts];
     }
 
+    //Disable button . . .
     button.disabled = true;
-    tryContainer.textContent = `${wrongGuesses} / ${maxGuesses}`;
 
-    if(wrongGuesses === maxGuesses) return gameOver(false);
+    //Change attempts counter . . .
+    attemptsContainer.textContent = `${failedAttempts}-${attempts}`;
+
+    // - - - - - - - - - - || GANE STATUS || - - - - - - - - - - //
+
+    //Lose condition . . .
+    if(failedAttempts === attempts) return gameOver(false);
+
+    //Win condition . . .
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
-function displayKeyboard()
+//Create Keyboard . . .
+function generateKeyboard()
 {
-    for(let counter = 97; counter <= 122; counter++)
+    //Loop array . . .
+    for(let counter of keyboard.letter)
     {
+        //Create a new button . . .
         const button = document.createElement("button");
-        button.innerHTML = String.fromCharCode(counter);
+
+        //Add letter to button . . .
+        button.innerHTML = counter;
+
+        //Add ID to button . . .
+        button.id = "keyboard_btn";
+
+        //Add button to container. . .
         keyboardContainer.appendChild(button);
 
-        button.addEventListener("click", e => initGame(e.target, String.fromCharCode(counter)));
+        //Add an event to button . . .
+        button.addEventListener("click", e => setGame(e.target, counter));
     }
 }
 
-displayWord();
-displayKeyboard();
-playAgain.addEventListener("click", displayWord);
+//Close game . . .
+function closeGame()
+{
+    window.close();
+}
+
+// - - - - - - - - - - || CALLING FUNCTIONS || - - - - - - - - - - //
+
+generateWord();
+generateKeyboard();
+
+// - - - - - - - - - - || BUTTONS EVENTS || - - - - - - - - - - //
+
+popUpResetBtn.addEventListener("click", generateWord);
+resetButton.addEventListener("click", generateWord);
+popUpCloseBtn.addEventListener("click", closeGame);
+closeButton.addEventListener("click", closeGame);
